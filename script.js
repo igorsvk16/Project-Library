@@ -12,3 +12,22 @@ function addBookToLibrary(title, author, isRead) {
     myLibrary.push(newBook);
 }
 
+function displayLibrary() {
+     const libraryContainer = document.getElementById(`library`);
+     libraryContainer.innerHTML = '';
+     myLibrary.forEach((book) => {
+        const  card = document.createElement('div');
+        card.classList.add('book-card');
+
+        const titleEl = document.createElement('h3');
+        titleEl.textContent = book.title;
+
+        const authorEl = document.createElement('p');
+        authorEl.textContent = `Author: ${book.author}`
+
+        const statusEl = document.createElement('p');
+        statusEl.textContent = `Status: ${book.isRead ? 'Read' : 'Not Read'}`;
+     })
+}
+addBookToLibrary("The Great Gatsby", "F. Scott Fitzgerald", false);
+addBookToLibrary("1984", "George Orwell", true);
