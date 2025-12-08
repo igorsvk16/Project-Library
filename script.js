@@ -27,7 +27,15 @@ function displayLibrary() {
 
         const statusEl = document.createElement('p');
         statusEl.textContent = `Status: ${book.isRead ? 'Read' : 'Not Read'}`;
+
+        card.appendChild(titleEl);
+        card.appendChild(authorEl);
+        card.appendChild(statusEl);
+
+        libraryContainer.appendChild(card);
      })
 }
 addBookToLibrary("The Great Gatsby", "F. Scott Fitzgerald", false);
 addBookToLibrary("1984", "George Orwell", true);
+
+displayLibrary();
