@@ -12,6 +12,12 @@ function addBookToLibrary(title, author, pages, isRead) {
     const newBook = new Book(title, author, pages, isRead);
     myLibrary.push(newBook);
 }
+function removeBookById(bookId) {
+    const index = myLibrary.findIndex((book) => book.id === bookId);
+    if (index !== -1) {
+        myLibrary.splice(index, 1);
+    }
+}
 
 function displayLibrary() {
      const libraryContainer = document.getElementById(`library`);
@@ -29,6 +35,12 @@ function displayLibrary() {
         const statusEl = document.createElement('p');
         statusEl.textContent = `Status: ${book.isRead ? 'Read' : 'Not Read'}`;
 
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+
+        deleteBtn.dataset.bookId = book.id;
+
+        card.appendChild(deleteBtn);
         card.appendChild(titleEl);
         card.appendChild(authorEl);
         card.appendChild(statusEl);
