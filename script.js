@@ -8,6 +8,10 @@ function Book(title, author, pages, isRead) {
     this.id = crypto.randomUUID();
 }
 
+Book.prototype.toggleReadStatus = function() {
+    this.isRead = !this.isRead;
+}
+
 function addBookToLibrary(title, author, pages, isRead) {
     const newBook = new Book(title, author, pages, isRead);
     myLibrary.push(newBook);
@@ -35,15 +39,31 @@ function displayLibrary() {
         const statusEl = document.createElement('p');
         statusEl.textContent = `Status: ${book.isRead ? 'Read' : 'Not Read'}`;
 
+        const toggleBtn = document.createElement('button');
+        toggleBtn.textContent = book.isRead ? 'Mark as Unread' : 'Mark as Read';
+
+        toggleBtn.addEventListener('click', () => {
+            book.toggleReadStatus();
+            displayLibrary();
+        })
+
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = 'Delete';
 
         deleteBtn.dataset.bookId = book.id;
 
-        card.appendChild(deleteBtn);
+        deleteBtn.addEventListener('click', () => {
+            const id = deleteBtn.dataset.bookId;
+            removeBookById(id);
+            displayLibrary();
+        });
+
+        
         card.appendChild(titleEl);
         card.appendChild(authorEl);
         card.appendChild(statusEl);
+        card.appendChild(toggleBtn);
+        card.appendChild(deleteBtn);
 
         libraryContainer.appendChild(card);
      })
