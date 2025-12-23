@@ -1,14 +1,15 @@
 const myLibrary = [];
 
-function Book(title, author, isRead, id) {
+function Book(title, author, pages, isRead) {
     this.title = title;
     this.author = author;
+    this.pages = pages;
     this.isRead = isRead;
     this.id = crypto.randomUUID();
 }
 
-function addBookToLibrary(title, author, isRead) {
-    const newBook = new Book(title, author, isRead);
+function addBookToLibrary(title, author, pages, isRead) {
+    const newBook = new Book(title, author, pages, isRead);
     myLibrary.push(newBook);
 }
 
@@ -35,7 +36,52 @@ function displayLibrary() {
         libraryContainer.appendChild(card);
      })
 }
-addBookToLibrary("The Great Gatsby", "F. Scott Fitzgerald", false);
-addBookToLibrary("1984", "George Orwell", true);
+
+window.addEventListener('DOMContentLoaded', () => {
+            console.log(
+        document.getElementById('newBookBtn'),
+        document.getElementById('bookForm'),
+        document.getElementById('library')
+        );
+        const newBookBtn = document.getElementById('newBookBtn');
+        const bookForm = document.getElementById('bookForm');
+
+        const titleInput = document.getElementById('titleInput');
+        const authorInput = document.getElementById('authorInput');
+        const pagesInput = document.getElementById('pagesInput');
+        const isReadInput = document.getElementById('isReadInput');
+
+        newBookBtn.addEventListener('click', () => {
+            if (bookForm.style.display == 'block') {
+                bookForm.style.display = 'none';
+            } else {
+                bookForm.style.display = 'block';
+            }
+        });
+
+        bookForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const title = titleInput.value;
+            const pages = pagesInput.value;
+            const author = authorInput.value;
+            const isRead = isReadInput.checked;
+
+            addBookToLibrary(title, author, pages, isRead);
+
+            displayLibrary();
+
+            bookForm.reset();
+            bookForm.style.display = 'none';
+        })
+    });
+
+
+
+
+
+
+addBookToLibrary("The Great Gatsby", "F. Scott Fitzgerald", 200, false);
+addBookToLibrary("1984", "George Orwell", 328, true);
 
 displayLibrary();
