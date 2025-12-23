@@ -3,38 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+<title>My Library</title>
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
 
 
 </head>
 <body>
-    <button id="newBookBtn">New book</button>
+    <div class="page">
+        <header class="hero">
+            <div class="hero__copy">
+                <p class="eyebrow">Personal Library</p>
+                <h1>Curate your reading list</h1>
+                <p class="lede">Capture every book you want to read, track your status, and keep your shelf organized.</p>
+            </div>
+            <button id="newBookBtn" class="btn primary">+ New book</button>
+        </header>
 
-    <form id="bookForm">
-        <div>
-            <label>
-                Title:
-                <input type="text" id="titleInput" required>
-            </label>
-            <label>
-                Author:
-                <input type="text" id="authorInput" required>
-            </label>
-            <label>
-                Pages:
-                <input type="number" id="pagesInput" required>
-            </label>
-            <label> 
-                <input type="checkbox" id="isReadInput">
-                Read:
-            </label>
-        </div>
+        <form id="bookForm" class="card form">
+            <div class="form-grid">
+                <label class="field">
+                    <span>Title</span>
+                    <input type="text" id="titleInput" required placeholder="The Name of the Wind">
+                </label>
+                <label class="field">
+                    <span>Author</span>
+                    <input type="text" id="authorInput" required placeholder="Patrick Rothfuss">
+                </label>
+                <label class="field">
+                    <span>Pages</span>
+                    <input type="number" id="pagesInput" required placeholder="320">
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="isReadInput">
+                    <span>Already read</span>
+                </label>
+            </div>
 
-        <button type="submit">Add book</button>
-    </form>
+            <div class="form-actions">
+                <button type="submit" class="btn primary">Add book</button>
+            </div>
+        </form>
 
-    <div id="library"></div>
+        <div id="library" class="library-grid"></div>
+    </div>
 </body>
 </html>
