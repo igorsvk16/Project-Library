@@ -91,6 +91,35 @@ window.addEventListener('DOMContentLoaded', () => {
     const pagesInput = document.getElementById('pagesInput');
     const isReadInput = document.getElementById('isReadInput');
 
+    function attachMessages(input, { requireMsg, minMsg } = {}) {
+        input.addEventListener('invalid', () => {
+            if (input.validity.valueMissing && requireMsg) {
+                input.setCustomValidity(requireMsg);
+                return;
+            }
+
+            if (input.validity.rangeUnderflow && minMsg) {
+                input.setCustomValidity(minMsg);
+                return;
+            }
+
+            input.setCustomValidity("");
+        });
+        input.addEventListener('input', () => input.setCustomValidity(""));
+    };
+    attachMessages(titleInput, {
+        requireMsg: "Необходимо заполнить название книги!",
+    });
+
+    attachMessages(authorInput, {
+        requireMsg: "Необходимо заполнить имя автора!",
+    });
+
+    attachMessages(pagesInput, {
+        requireMsg: "Необходимо указать количество страниц!",
+        minMsg: "Количество страниц должно быть больше 0!",
+    });
+
     newBookBtn.addEventListener('click', () => {
         if (bookForm.style.display == 'block') {
             bookForm.style.display = 'none';
@@ -102,9 +131,9 @@ window.addEventListener('DOMContentLoaded', () => {
     bookForm.addEventListener('submit', (event) => {
         event.preventDefault();
 
-        const title = titleInput.value;
+        const title = titleInput.value.trim();
         const pages = pagesInput.value;
-        const author = authorInput.value;
+        const author = authorInput.value.trim();
         const isRead = isReadInput.checked;
 
         addBookToLibrary(title, author, pages, isRead);
@@ -114,6 +143,8 @@ window.addEventListener('DOMContentLoaded', () => {
         bookForm.reset();
         bookForm.style.display = 'none';
     });
+
+
 });
 
 addBookToLibrary("The Great Gatsby", "F. Scott Fitzgerald", 200, false);
